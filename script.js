@@ -1,21 +1,16 @@
-const toggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.main-nav');
-if (toggle && nav) {
-  toggle.addEventListener('click', () => nav.classList.toggle('open'));
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const yearTarget = document.querySelector("[data-year]");
+  if (yearTarget) yearTarget.textContent = new Date().getFullYear();
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.15 });
-
-document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
-
-document.querySelectorAll('form').forEach((form) => {
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    alert('Merci, votre demande a bien été envoyée. Nous vous recontactons rapidement.');
-    form.reset();
-  });
+  const form = document.querySelector("[data-contact-form]");
+  if (form) {
+    const notice = document.querySelector("[data-form-notice]");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (notice) {
+        notice.textContent = "Thank you. A senior advisor will contact you within one business day.";
+      }
+      form.reset();
+    });
+  }
 });
